@@ -1,6 +1,18 @@
 {% extends 'base.html' %}
+{% load static %} 
 
 {% block title %}Home{% endblock %}
+
+{% block head %}
+<link rel="stylesheet"  href="{% static 'css/search.css'%}">
+<script src="{% static 'js/search.js' %}"></script> 
+  {% endblock %}
+{% block style %} 
+  		h2{
+			color:green;
+		}
+{% endblock %}
+
 
 {% block content %}
 	
@@ -10,6 +22,20 @@
 	Hi {{ user.username }}!
 	<span style="float: right;"><a href="{% url 'logout' %}">logout</a></span>
 	<br>{{ products }}
+<br><br>
+	<!--Make sure the form has the autocomplete function switched off:-->
+	<form autocomplete="off" action="">
+  		<div class="autocomplete" style="width:300px;">
+	    	<input id="myInput" type="text" name="item name" placeholder="item">
+  		</div>
+  		<input type="submit">
+	</form>
+	<script type="text/javascript">
+		var items={% autoescape off %}{{ products}}{% endautoescape %};
+		/*initiate the autocomplete function on the "myInput" element, and pass along the items array as possible autocomplete values:*/
+		autocomplete(document.getElementById("myInput"),items);
+	</script>
+
 
 
 {% else %}
