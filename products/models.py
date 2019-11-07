@@ -9,4 +9,6 @@ class item(models.Model):
     content = models.TextField(blank=True)
     created_on = models.DateTimeField(auto_now_add=True)
     price= models.IntegerField()
+    def __str__(self):
+   		return 'item: ' + self.name
    

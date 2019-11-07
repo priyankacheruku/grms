@@ -24,16 +24,27 @@
 	<br>{{ products }}
 <br><br>
 	<!--Make sure the form has the autocomplete function switched off:-->
-	<form autocomplete="off" action="">
+	<form autocomplete="off" action="/add/">
   		<div class="autocomplete" style="width:300px;">
-	    	<input id="myInput" type="text" name="item name" placeholder="item">
+	    	<input id="myInput" type="text" name="item_name" placeholder="item">
   		</div>
   		<input type="submit">
 	</form>
+	<br>
+	{{ bill_items }}
+	<br>
+	
+	<table align="center">
+	<tr><th>name</th><th>price</th><th>id</th></tr>
+	{% autoescape off %} {{ bill }} {% endautoescape %}
+	</table>
+
+	<br>
 	<script type="text/javascript">
 		var items={% autoescape off %}{{ products}}{% endautoescape %};
 		/*initiate the autocomplete function on the "myInput" element, and pass along the items array as possible autocomplete values:*/
 		autocomplete(document.getElementById("myInput"),items);
+</script>
 	</script>
 
 
