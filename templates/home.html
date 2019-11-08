@@ -11,6 +11,13 @@
   		h2{
 			color:green;
 		}
+		#total{
+			float:right;
+			border-radius: 25px;
+  			border: 2px solid red;
+  			padding: 10px;
+  			
+		}
 {% endblock %}
 
 
@@ -18,24 +25,32 @@
 	
 
 {% if user.is_authenticated %}
+	<span style="float: right;">
+		Hi {{ user.username }}!
+		<a href="{% url 'logout' %}">logout</a>
+	</span>
 
-	Hi {{ user.username }}!
-	<span style="float: right;"><a href="{% url 'logout' %}">logout</a></span>
-	<br>{{ products }}
+	<br>
+	<h4 style="float: left;"><span style="color:blue">Items available: </span>{{ products }}</h4>
 <br><br>
+<br><br>
+	
 	<!--Make sure the form has the autocomplete function switched off:-->
 	<form autocomplete="off" action="/add/">
   		<div class="autocomplete" style="width:300px;">
 	    	<input id="myInput" type="text" name="item_name" placeholder="item">
   		</div>
-  		<input type="submit">
+  		<input type="submit"> 
+  		<span id="total"> TOTAL  AMOUNT : {{ total }}</span>
 	</form>
+
 	<br>
-	{{ bill_items }}
+		{{ bill_items }}
 	<br>
 	
 	<table align="center">
-	<tr><th>name</th><th>price</th><th>id</th></tr>
+	{% autoescape off %} {{ table_header }}  {% endautoescape %}
+
 	{% autoescape off %} {{ bill }} {% endautoescape %}
 	</table>
 
