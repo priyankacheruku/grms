@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block title %}search{% endblock %}
+{% block head %}
+  <link rel="stylesheet"  href="{% static 'css/search.css'%}">
+  <script src="{% static 'js/search.js' %}"></script>
+{% endblock %}
+ 
+
+{% block content %} 
+<center>
+<div id="search">
+    <!--Make sure the form has the autocomplete function switched off:-->
+  	<form autocomplete="off" action="/add/">
+  		<div class="autocomplete" style="width:300px;">
+      		<input id="myInput" type="text" name="item_name" placeholder="item">
+   		</div>
+      <input id="submit_add" type="submit" >   
+  	</form>
+    <br><br>
+  		<table>
+	{% autoescape off %} {{ table_header }}  {% endautoescape %}
+
+	{% autoescape off %} {{ bill }} {% endautoescape %}
+    </table>
+</div>
+</center>
+<script type="text/javascript">
+
+  document.getElementById("search").addEventListener('click', function() {
+        var items={% autoescape off %}{{ products}}{% endautoescape %};
+      /*initiate the autocomplete function on the "myInput" element, and pass along the items array as possible autocomplete values:*/
+    autocomplete(document.getElementById("myInput"),items);
+    
+  }, false);
+  
+</script>
+
+
+{% endblock %}

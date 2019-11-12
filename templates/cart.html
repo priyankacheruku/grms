@@ -1,0 +1,93 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load svg %}
+
+{% block title %}cart{% endblock %}
+
+{% block head %}
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <link rel="stylesheet"  href="{% static 'css/cart.css'%}">
+   <!-- <script src="https://code.jquery.com/jquery-2.2.4.js" charset="utf-8"></script>
+    <meta name="robots" content="noindex,follow" />-->
+
+{% endblock %}
+{% block authorised %}
+    <div class="shopping-cart">
+      <!-- Title -->
+      <div class="title">
+        Shopping Bag
+      </div>
+
+      
+      {% for i in products %}
+      <!-- Product #3 -->
+      <div class="item">
+        
+
+        <div class="image">
+          <img src="item-3.png" alt="" />
+        </div>
+
+        <div class="description">
+          <span>{{ i }}</span>
+          <span>Brushed Scarf</span>
+          <span>Brown</span>
+        </div>
+
+        <div class="quantity">
+          <button class="minus-btn" type="button" name="button">
+            
+            {% svg 'minus' %}
+          </button>
+          <input type="text" name="name" value="1">
+          <button class="plus-btn" type="button" name="button">
+            {% svg 'plus' %}
+
+          </button>
+        </div>
+
+        <div class="total-price">$349</div>
+      </div>
+      {% endfor %}
+    </div>
+
+    <script type="text/javascript">
+      $('.minus-btn').on('click', function(e) {
+        e.preventDefault();
+        var $this = $(this);
+        var $input = $this.closest('div').find('input');
+        var value = parseInt($input.val());
+
+        if (value > 1) {
+          value = value - 1;
+        } else {
+          value = 0;
+        }
+
+        $input.val(value);
+
+      });
+
+      $('.plus-btn').on('click', function(e) {
+        e.preventDefault();
+        var $this = $(this);
+        var $input = $this.closest('div').find('input');
+        var value = parseInt($input.val());
+
+        if (value < 100) {
+          value = value + 1;
+        } else {
+          value =100;
+        }
+
+        $input.val(value);
+      });
+
+      $('.like-btn').on('click', function() {
+        $(this).toggleClass('is-active');
+      });
+    </script>
+
+{% endblock %}

@@ -3,73 +3,21 @@
 
 {% block title %}Home{% endblock %}
 
-{% block head %}
-<link rel="stylesheet"  href="{% static 'css/search.css'%}">
-<script src="{% static 'js/search.js' %}"></script> 
-  {% endblock %}
-{% block style %} 
-  		h2{
-			color:green;
-		}
-		#total{
-			float:right;
-			border-radius: 25px;
-  			border: 2px solid red;
-  			padding: 10px;
-  			
-		}
-{% endblock %}
-
-
 {% block content %}
-	
 
-{% if user.is_authenticated %}
-	<span style="float: right;">
-		Hi {{ user.username }}!
-		<a href="{% url 'logout' %}">logout</a>
-	</span>
 
-	<br>
-	<h4 style="float: left;"><span style="color:blue">Items available: </span>{{ products }}</h4>
-<br><br>
-<br><br>
-	
-	<!--Make sure the form has the autocomplete function switched off:-->
-	<form autocomplete="off" action="/add/">
-  		<div class="autocomplete" style="width:300px;">
-	    	<input id="myInput" type="text" name="item_name" placeholder="item">
-  		</div>
-  		<input type="submit"> 
-  		<span id="total"> TOTAL  AMOUNT : {{ total }}</span>
-	</form>
 
+<!--<h4 style="float: left;"><span style="color:blue">Items available: </span>{{ products }}</h4>
+<span id="total"> TOTAL  AMOUNT : {{ total }}</span>
 	<br>
 		{{ bill_items }}
-	<br>
-	
-	<table align="center">
-	{% autoescape off %} {{ table_header }}  {% endautoescape %}
+	<br>-->
 
-	{% autoescape off %} {{ bill }} {% endautoescape %}
-	</table>
-
-	<br>
-	<script type="text/javascript">
-		var items={% autoescape off %}{{ products}}{% endautoescape %};
-		/*initiate the autocomplete function on the "myInput" element, and pass along the items array as possible autocomplete values:*/
-		autocomplete(document.getElementById("myInput"),items);
-</script>
-	</script>
-
-
-
-{% else %}
-
-  <p>You are not logged in</p>
-  <a href="{% url 'login' %}">login</a>
-  
-{% endif %}
+<div id="Home" >
+    
+    <p>Our Application helps the shopkeeper to store the items in the Database. Instead of storing the details of items manually this project helps to store in database.
+    The system contains all the basic functions which include adding, viewing, deleting and updating items. In order to add an item detail, the user has to provide its name, price, quantity, category, and discount</p>
+    
+</div>
 
 {% endblock %}
-

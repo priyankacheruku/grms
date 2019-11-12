@@ -54,6 +54,7 @@ def add(request):
 
 	f=''.join(final)
 	context={
+		'items':item,
 		'products':l,
 		'bill_items':bill,
 		'bill':f,
@@ -61,4 +62,4 @@ def add(request):
 		'total': total_amount
 	}
 
-	return render(request, 'home.html', context)
+	return render(request, 'search.html', context)
