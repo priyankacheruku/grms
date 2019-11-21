@@ -13,7 +13,7 @@ l=[]
 bill=[]
 final=[]
 #all items retived
-items = item.objects.all()
+items = item.objects.all().order_by('name')
 
 #only item name are added
 for i in items:

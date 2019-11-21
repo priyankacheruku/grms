@@ -2,6 +2,7 @@
 {% load static %}
 {% load svg %}
 
+
 {% block title %}cart{% endblock %}
 
 {% block head %}
@@ -9,6 +10,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     
     <link rel="stylesheet"  href="{% static 'css/cart.css'%}">
+   <script type="text/javascript" src="{% static 'js/cart.js'%}"></script>
+
    <!-- <script src="https://code.jquery.com/jquery-2.2.4.js" charset="utf-8"></script>
     <meta name="robots" content="noindex,follow" />-->
 
@@ -19,36 +22,38 @@
       <div class="title">
         Shopping Bag
       </div>
-
+<!--|order_by:"name"-->
       
-      {% for i in products %}
+      {% for i in items %}
       <!-- Product #3 -->
-      <div class="item">
+      <div id="item" class="item">
         
 
         <div class="image">
           <img src="item-3.png" alt="" />
         </div>
 
-        <div class="description">
-          <span>{{ i }}</span>
-          <span>Brushed Scarf</span>
-          <span>Brown</span>
-        </div>
+        <span class="description">
+          <span>{{ i.name }}</span>
+          <span>{{i.description}}</span>
+          <span id="price" class="price" data-price="{{i.price}}" >{{i.price}}</span>
+        </span>
 
-        <div class="quantity">
+        <span class="quantity">
           <button class="minus-btn" type="button" name="button">
-            
             {% svg 'minus' %}
           </button>
-          <input type="text" name="name" value="1">
-          <button class="plus-btn" type="button" name="button">
+
+          <input type="text"  name="inputNumber" value="0">
+
+          <button id="plus" class="plus-btn" type="button" name="button">
             {% svg 'plus' %}
-
           </button>
-        </div>
+          <span class="total-price" id=pricevalue>0</span>
 
-        <div class="total-price">$349</div>
+        </span>
+
+        <!--<div class="total-price" id="total">0</div>-->
       </div>
       {% endfor %}
     </div>
@@ -57,37 +62,47 @@
       $('.minus-btn').on('click', function(e) {
         e.preventDefault();
         var $this = $(this);
+        var $fixedPrice = $this.closest('div').find('#price');
         var $input = $this.closest('div').find('input');
-        var value = parseInt($input.val());
+        var $price = $this.closest('div').find('#pricevalue');
 
-        if (value > 1) {
+        var value = parseInt($input.val());
+        var price=parseInt($fixedPrice.text());
+
+        if (value > 0) {
           value = value - 1;
         } else {
           value = 0;
         }
-
+        //alert(price*value);
         $input.val(value);
+        $price.text(price*value);
 
       });
 
       $('.plus-btn').on('click', function(e) {
         e.preventDefault();
         var $this = $(this);
+        var $fixedPrice = $this.closest('div').find('#price');
         var $input = $this.closest('div').find('input');
-        var value = parseInt($input.val());
+        var $price = $this.closest('div').find('#pricevalue');
 
+        
+        
+        var value = parseInt($input.val());
+        var price=parseInt($fixedPrice.text());
+        //alert(price);
         if (value < 100) {
           value = value + 1;
         } else {
           value =100;
         }
-
         $input.val(value);
+        $price.text(price*value);
+               
       });
 
-      $('.like-btn').on('click', function() {
-        $(this).toggleClass('is-active');
-      });
     </script>
+     
 
 {% endblock %}

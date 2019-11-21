@@ -22,6 +22,6 @@ def cart(request):
 	
 	context={
 		"cart_page": "active",
-		'products':l,
+		'items':items,
 	}
 	return render(request, 'cart.html',context)
