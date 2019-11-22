@@ -178,3 +178,14 @@ input:focus {
     margin-right: 20px;
   }
 }
+.footer {
+  border-radius: 20px;
+  border: 2px solid red;
+  position: fixed;
+  left: 0;
+  bottom:5px;
+  margin-left: 1050px;
+  padding: 10px;
+  color: red;
+  text-align: center;
+}

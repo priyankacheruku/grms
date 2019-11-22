@@ -13,20 +13,20 @@ l=[]
 bill=[]
 final=[]
 #all items retived
-items = item.objects.all().order_by('name')
+items = item.objects.all()
 
 #only item name are added
 for i in items:
    	l.append(i.name)
 total_amount=0
+
+# Create your views here.
 def index(request):
 	bill.clear()
 	final.clear()
 	
 	global total_amount
-	total_amount=0
-	return render(request, 'home.html', {'products':l,'total': total_amount})
-    
+	return render(request, 'home.html', {'products':l,'total': "total_amount"})
 def add(request):
 	entry=[]
 	x=request.GET["item_name"]
