@@ -43,28 +43,6 @@
   margin-right: 60px;
 }
 
-.delete-btn {
-  display: inline-block;
-  cursor: pointer;
-  width: 18px;
-  height: 17px;
-  background: url("delete-icn.svg") no-repeat center;
-  margin-right: 20px;
-}
-
-.like-btn {
-  position: absolute;
-  top: 9px;
-  left: 15px;
-  display: inline-block;
-  background: url('twitter-heart.png');
-  width: 60px;
-  height: 60px;
-  background-size: 2900%;
-  background-repeat: no-repeat;
-  cursor: pointer;
-}
-
 .is-active {
   animation-name: animate;
   animation-duration: .8s;
@@ -86,9 +64,9 @@
 
 /* Product Description */
 .description {
-  padding-top: 10px;
+  padding-top: 5px;
   margin-right: 60px;
-  width: 115px;
+  width: 125px;
 }
 
 .description span {
@@ -99,12 +77,12 @@
 }
 
 .description span:first-child {
-  margin-bottom: 5px;
+  margin-bottom: 0px;
 }
 .description span:last-child {
-  font-weight: 300;
-  margin-top: 8px;
-  color: #86939E;
+  font-weight: 400;
+  margin-top: 5px;
+  color: #43484D;
 }
 
 /* Product Quantity */

@@ -34,7 +34,7 @@
 <body >  
 	<img src="{%static '/images/gr.jpg' %}" alt="sometng" height="200" width=100% >
   <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand" href="{% url 'home' %}">Navbar</a>
+   <!-- <a class="navbar-brand" href="{% url 'home' %}">Navbar</a>-->
     <div id="navbarNav">
       <ul class="navbar-nav">
         <li class="nav-item {{ home_page }}">
@@ -64,8 +64,11 @@
 {% else %}
 
   {% block unauthorised %}
-    <p>You are not logged in</p>
-    <a href="{% url 'login' %}">login</a>
+  <center>
+    <p style="padding-top: 5px;">You are not logged in !<br>
+    <a href="{% url 'login' %}">login</a></p>
+  </center>
+
   {% endblock%}
 
 {% endif %}

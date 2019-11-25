@@ -17,8 +17,11 @@
 
 {% endblock %}
 {% block authorised %}
+  
+  <form>
     <div class="shopping-cart">
       <!-- Title -->
+
       <div class="title">
         Shopping Bag
       </div>
@@ -26,6 +29,7 @@
       
       {% for i in items %}
       <!-- Product #3 -->
+      
       <div id="item" class="item">
         
 
@@ -34,9 +38,10 @@
         </div>
 
         <span class="description">
-          <span>{{ i.name }}</span>
+          <span>item name: {{ i.name }}</span>
+          <span > item id : <strong id="itemid">{{ i.id_no }}</strong></span>
           <span>{{i.description}}</span>
-          <span id="price" class="price" data-price="{{i.price}}" >{{i.price}}</span>
+          <span>price :<strong id="fixedPrice" class="price" data-price="{{i.price}}" >{{i.price}}</strong></span>
         </span>
 
         <span class="quantity">
@@ -44,12 +49,12 @@
             {% svg 'minus' %}
           </button>
 
-          <input type="text"  name="inputNumber" value="0">
+          <input type="text"  name="inputNumber" id="quantity" value="0">
 
           <button id="plus" class="plus-btn" type="button" name="button">
             {% svg 'plus' %}
           </button>
-          <span class="total-price" id=pricevalue>0</span>
+          <span class="total-price" id="pricevalue">0</span>
 
         </span>
 
@@ -59,14 +64,14 @@
     </div>
 
     <div class="footer">
-      total price
+      total price<span id="fianlPrice">0</span>
     </div>
-
-    <script type="text/javascript">
-      $('.minus-btn').on('click', function(e) {
+  </form>
+  <script type="text/javascript">
+    $('.minus-btn').on('click', function(e) {
         e.preventDefault();
         var $this = $(this);
-        var $fixedPrice = $this.closest('div').find('#price');
+        var $fixedPrice = $this.closest('div').find('#fixedPrice');
         var $input = $this.closest('div').find('input');
         var $price = $this.closest('div').find('#pricevalue');
 
@@ -81,13 +86,18 @@
         //alert(price*value);
         $input.val(value);
         $price.text(price*value);
+        //update();
 
       });
 
+
       $('.plus-btn').on('click', function(e) {
+        
         e.preventDefault();
         var $this = $(this);
-        var $fixedPrice = $this.closest('div').find('#price');
+        var $itemid=$this.closest('div').find('#itemid');
+    
+        var $fixedPrice = $this.closest('div').find('#fixedPrice');
         var $input = $this.closest('div').find('input');
         var $price = $this.closest('div').find('#pricevalue');
 
@@ -95,6 +105,8 @@
         
         var value = parseInt($input.val());
         var price=parseInt($fixedPrice.text());
+        var itemid=parseInt($itemid.text());
+        alert(itemid);
         //alert(price);
         if (value < 100) {
           value = value + 1;
@@ -103,9 +115,30 @@
         }
         $input.val(value);
         $price.text(price*value);
-               
+        //var temp=parseInt(price*value);
+        //t=t+temp;
+
+        update(itemid,value); 
+
       });
 
+
+      function update(itemid,value) {
+        
+
+         $.ajax({
+          type:"POST",
+          url: "{% url 'update' %}", 
+          data:{
+            'itemid':itemid,
+            'quantity':value,
+          },
+          dataType: 'json',
+          success: function(result){
+            alert("ok");
+          }
+      });
+       }
     </script>
      
 

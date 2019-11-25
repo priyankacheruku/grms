@@ -7,4 +7,5 @@ urlpatterns = [
     #path('add/',views.add, name='add')
     url(r'^add/$', views.add,name='add'),
     #url(r'^$', 'views.index'),
+    url('update',views.update,name='update'),
 ]

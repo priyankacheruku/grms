@@ -4,11 +4,26 @@ from django.db import models
 from django.template.defaultfilters import slugify
 from django.contrib.auth.models import User
 class item(models.Model):
-    name = models.CharField(max_length=255)
-    id_no= models.IntegerField()
-    content = models.TextField(blank=True)
-    created_on = models.DateTimeField(auto_now_add=True)
-    price= models.IntegerField()
-    image = models.ImageField(upload_to='uploads/', verbose_name='image')
-    def __str__(self):
-   		return 'item: ' + self.name
+	def __str__(self):
+		return 'item: '+self.name
+	name = models.CharField(max_length=255)
+	id_no= models.IntegerField(unique=True)
+	content = models.TextField(blank=True)
+	created_on = models.DateTimeField(auto_now_add=True)
+	price= models.IntegerField()
+	image = models.ImageField(upload_to='uploads/', verbose_name='image')
+	class Meta:
+   		ordering=['name']
+class cartItems(models.Model):
+	
+	item_name=models.ForeignKey(item,on_delete=models.CASCADE,related_name="names")
+	quantity=models.IntegerField()
+	user = models.ForeignKey(User, null=True, blank=True,on_delete=models.CASCADE,related_name="users")
+	def __str__(self):
+		return('cart  items of '+self.user.username+' '+str(self.item_name))
+
+class cart(models.Model):
+	def __str__(self):
+		return 'cart of'
+	user = models.ForeignKey(cartItems, null=True, blank=True,on_delete=models.CASCADE,related_name="users")
+	totalPrice= models.IntegerField()
