@@ -14,19 +14,39 @@
 <div id="search">
     <!--Make sure the form has the autocomplete function switched off:-->
   	<form autocomplete="off" action="/add/">
+      
   		<div class="autocomplete" style="width:300px;">
       		<input id="myInput" type="text" name="item_name" placeholder="item">
    		</div>
       <input id="submit_add" type="submit" >   
   	</form>
     <br><br>
-  		<table>
-	{% autoescape off %} {{ table_header }}  {% endautoescape %}
 
-	{% autoescape off %} {{ bill }} {% endautoescape %}
+<span style="float:left;">Submit search to obseve details !</span>
+  	<table>
+	
+       <div class="image">
+          <img src="{{ entry.image.url}}" alt="" height="100px" width="100px" alt="dsfdsg"/>
+        </div>
+      
+
+<tr><th>details</th></tr>
+<tr><th>item name:</th>
+    <td>{{ entry.name }}</td>
+</tr>
+<tr><th>item id:</th>
+    <td>{{ entry.id_no}}</td>
+</tr>
+ <tr><th>item price:</th>
+    <td>{{ entry.price}}</td>
+</tr>  
+       
     </table>
+
 </div>
 </center>
+
+
 <script type="text/javascript">
 
   document.getElementById("search").addEventListener('click', function() {

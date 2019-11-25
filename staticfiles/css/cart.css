@@ -165,5 +165,12 @@ input:focus {
   margin-left: 1050px;
   padding: 10px;
   color: red;
-  text-align: center;
+ /* text-align: center;*/
+}
+#submit{
+  padding-top: 0px;
+  display: inline-block;
+  background-color:#66a3ff;
+  width:70px;
+  color:white;
 }

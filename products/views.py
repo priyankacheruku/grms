@@ -8,42 +8,35 @@ from django.http import JsonResponse
 from django.db import models
 from .models import *
 from django.db import connection
+
 #items in database will be added
 l=[]
-#items added to cart
-bill=[]
-final=[]
+
 #all items retived
 items = item.objects.all()
 
 #only item name are added
 for i in items:
    	l.append(i.name)
-total_amount=0
+
 
 # Create your views here.
 def index(request):
-	bill.clear()
-	final.clear()
-	
-	global total_amount
-	return render(request, 'home.html', {'products':l,'total': "total_amount"})
+	return render(request, 'home.html')
+
 def add(request):
 	entry=[]
 	x=request.GET["item_name"]
-	bill.append(x)
-
+	#bill.append(x)
 	#query to get price and id of items enterd
-	entry = item.objects.filter(name=x).values_list('name','price','id')
-	print(entry)
 	try:
-		
-		global total_amount
-		total_amount=total_amount+entry[0][1]
-
+		entry = item.objects.get(name=x)
+		print(entry)
 	except IndexError:
 		return HttpResponse("null or unavailable value entered is  not accepted")
-		
+	except :
+		return HttpResponse("null or unavailable value entered is  not accepted while search")
+	"""	
 	for e in entry:		
 		final.append("<tr>")
 		for i in e:
@@ -51,16 +44,17 @@ def add(request):
 			final.append(str(i))
 			final.append("</td>")
 		final.append("</tr>")
-		
+	"""	
 
-	f=''.join(final)
+	#f=''.join(final)
 	context={
 		'items':item,
 		'products':l,
-		'bill_items':bill,
-		'bill':f,
-		'table_header':"<tr><th>Name</th><th>Price</th><th>Id</th></tr>",
-		'total': total_amount
+		#'bill_items':bill,
+		#'bill':f,
+		#'table_header':"<tr><th>Name</th><th>Price</th><th>Id</th></tr>",
+		#'total': total_amount,
+		'entry':entry
 	}
 
 	return render(request, 'search.html', context)
@@ -68,7 +62,7 @@ def add(request):
 
 @csrf_exempt
 def update(request):
-	print("ok......")
+	#print("ok......")
 	if request.method == 'POST':
 
 		itemid=int(request.POST['itemid'])
@@ -89,16 +83,34 @@ def update(request):
 			with connection.cursor() as cursor:
 				cursor.execute("select sum(i.price*quantity)  from products_cartitems,products_item as i where user_id=1 and item_name_id=i.id")
 				row = cursor.fetchone()
-				print(row)
+				#print(row[0])
 				#global context
-				context =  {"row":row}
-				return render(request, "cart.html", context)
+				context =  {"row":row[0]}
+				#return render(request, "cart.html", context)
 			#my_custom_sql()
 		except cartItems.DoesNotExist:
 			cartItem=cartItems.objects.create(item_name=e,quantity=quantity,user=user)
 			cartItem.save()
 		#print(cartItem.objects.raw(select sum(i.price*quantity)  from cartitems,item as i where user=1 AND i.name=item_name))
-		print(cartItems.objects.filter(user=1))
-	
-	
-		
+		#print(cartItems.objects.filter(user=1))
+		return JsonResponse(context)
+
+def generate_invoice(request):
+	items=item.objects.all()
+	print(items)
+	cartitems=cartItems.objects.filter(user=request.user)
+	with connection.cursor() as cursor:
+		cursor.execute("select sum(i.price*quantity)  from products_cartitems,products_item as i where user_id=1 and item_name_id=i.id")
+		row = cursor.fetchone()
+	context={
+		'item':items,
+		'cartItems':cartitems,
+		'total':row[0]
+	}
+	return render(request,'invoice.html',context)
+@csrf_exempt
+def delete(request):
+	if request.method == 'POST':
+		#print("ok")
+		cartItems.objects.filter(user=request.user).delete()
+		return JsonResponse({'sucess':"sucess"})

@@ -62,9 +62,12 @@
       </div>
       {% endfor %}
     </div>
-
+      
     <div class="footer">
-      total price<span id="fianlPrice">0</span>
+
+      total price<span id="fianlPrice">0</span> &nbsp;&nbsp;
+      <button id="submit" type="button" class="btn btn-lg" onclick="location.href='{% url 'generate_invoice' %}'">buy</button>
+      
     </div>
   </form>
   <script type="text/javascript">
@@ -106,7 +109,7 @@
         var value = parseInt($input.val());
         var price=parseInt($fixedPrice.text());
         var itemid=parseInt($itemid.text());
-        alert(itemid);
+        //alert(itemid);
         //alert(price);
         if (value < 100) {
           value = value + 1;
@@ -124,8 +127,7 @@
 
 
       function update(itemid,value) {
-        
-
+  
          $.ajax({
           type:"POST",
           url: "{% url 'update' %}", 
@@ -135,10 +137,25 @@
           },
           dataType: 'json',
           success: function(result){
-            alert("ok");
+            //alert(result.row);
+            $("#fianlPrice").text(result.row);
           }
-      });
-       }
+        });
+
+      }
+      window.onload = function(){
+          //alert("onload");
+          
+          $.ajax({
+          type:"POST",
+          url: "{% url 'delete' %}", 
+          success: function(result){
+            //alert("re");
+            //$("#fianlPrice").text(result.row);
+          }
+        });
+
+      }
     </script>
      
 
