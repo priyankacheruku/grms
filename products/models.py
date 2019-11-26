@@ -24,6 +24,7 @@ class cartItems(models.Model):
 
 class cart(models.Model):
 	def __str__(self):
-		return 'cart of'
-	user = models.ForeignKey(cartItems, null=True, blank=True,on_delete=models.CASCADE,related_name="users")
+		return 'cart of '+self.user.username
+	user = models.ForeignKey(User, null=True, blank=True,on_delete=models.CASCADE,related_name="+")
+	created_on = models.DateTimeField(auto_now_add=True)
 	totalPrice= models.IntegerField()

@@ -65,7 +65,7 @@
       
     <div class="footer">
 
-      total price<span id="fianlPrice">0</span> &nbsp;&nbsp;
+      total price<span id="finalPrice">0</span> &nbsp;&nbsp;
       <button id="submit" type="button" class="btn btn-lg" onclick="location.href='{% url 'generate_invoice' %}'">buy</button>
       
     </div>
@@ -74,13 +74,14 @@
     $('.minus-btn').on('click', function(e) {
         e.preventDefault();
         var $this = $(this);
+        var $itemid=$this.closest('div').find('#itemid');
         var $fixedPrice = $this.closest('div').find('#fixedPrice');
         var $input = $this.closest('div').find('input');
         var $price = $this.closest('div').find('#pricevalue');
 
         var value = parseInt($input.val());
         var price=parseInt($fixedPrice.text());
-
+        var itemid=parseInt($itemid.text());
         if (value > 0) {
           value = value - 1;
         } else {
@@ -90,6 +91,8 @@
         $input.val(value);
         $price.text(price*value);
         //update();
+        update(itemid,value); 
+      
 
       });
 
@@ -127,7 +130,7 @@
 
 
       function update(itemid,value) {
-  
+          //alert("as");
          $.ajax({
           type:"POST",
           url: "{% url 'update' %}", 
@@ -138,7 +141,8 @@
           dataType: 'json',
           success: function(result){
             //alert(result.row);
-            $("#fianlPrice").text(result.row);
+
+            $("#finalPrice").text(result.row);
           }
         });
 
@@ -150,8 +154,8 @@
           type:"POST",
           url: "{% url 'delete' %}", 
           success: function(result){
-            //alert("re");
-            //$("#fianlPrice").text(result.row);
+            //alert(result);
+            $("#finalPrice").text(result.row);
           }
         });
 

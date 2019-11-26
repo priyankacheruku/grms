@@ -18,11 +18,12 @@
     <meta name="author" content="Invoicebus">
 
     <meta name="template-hash" content="91216e926eab41d8aa403bf4b00f4e19">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
     <link rel="stylesheet"  href="{% static 'css/invoice.css'%}">
     <script type="text/javascript" src="{% static 'js/invoice.js'%}"></script>
   </head>
-  <body>
+  <body onload="mul()">
   	
     <div id="container">
       <div class="left-stripes">
@@ -65,7 +66,7 @@
             <span>{{user.get_username}}</span>
           </div>
           
-          <div>
+       <!--   <div>
             <span>{client_address}</span>
           </div>
           
@@ -83,7 +84,7 @@
           
           <div>
             <span>{client_other}</span>
-          </div>
+          </div>-->
         </section>
         
         <div class="clearfix"></div>
@@ -105,7 +106,7 @@
         <div class="currency">
           <span>{currency_label}</span> <span>{currency}</span>
         </div>-->
-        
+        <div id="invoice">
         <section id="items">
           
           <table cellpadding="0" cellspacing="0">
@@ -123,21 +124,22 @@
             {% for i in cartItems %}
             <tr>
             	<td>{item_row_number}</td>
-              <td>{{i.item_name.name}}</td> <!-- Don't remove this column as it's needed for the row commands -->
+              <td>{{i.item_name.name}}</td> 
               
-              <td>{{i.quantity}}</td>
-              <td>{{i.item_name.price}}</td>
+              <td id="quantity">{{i.quantity}}</td>
+              <td id="price">{{i.item_name.price}}</td>
               <td>{item_discount}</td>
               <td>{item_tax}</td>
-              <td>{{i.quantity}}*{{i.item_name.price }}</td>
+              <td id="line_total"> {{i.quantity }}*{{ i.item_name.price }} </td>
             </tr>
-            	
+                
+           
             {% endfor%} 
-            
+             
           </table>
           
         </section>
-        
+        </div>
         <section id="sums">
         
           <table cellpadding="0" cellspacing="0">

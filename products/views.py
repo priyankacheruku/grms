@@ -31,7 +31,7 @@ def add(request):
 	#query to get price and id of items enterd
 	try:
 		entry = item.objects.get(name=x)
-		print(entry)
+		#print(entry)
 	except IndexError:
 		return HttpResponse("null or unavailable value entered is  not accepted")
 	except :
@@ -79,38 +79,48 @@ def update(request):
 			cartItem.save()
 			#cart=cart.objects.get(user=user)
 			#i=cartItems.objects.select_related('item_name')
-			print(i)
+			#print(i)
 			with connection.cursor() as cursor:
 				cursor.execute("select sum(i.price*quantity)  from products_cartitems,products_item as i where user_id=1 and item_name_id=i.id")
 				row = cursor.fetchone()
 				#print(row[0])
 				#global context
 				context =  {"row":row[0]}
+				#print(row[0])
 				#return render(request, "cart.html", context)
 			#my_custom_sql()
 		except cartItems.DoesNotExist:
 			cartItem=cartItems.objects.create(item_name=e,quantity=quantity,user=user)
 			cartItem.save()
+			with connection.cursor() as cursor:
+				cursor.execute("select sum(i.price*quantity)  from products_cartitems,products_item as i where user_id=1 and item_name_id=i.id")
+				row = cursor.fetchone()
+				#print(row[0])
+				#global context
+				context =  {"row":row[0]}
+				#print(row)
 		#print(cartItem.objects.raw(select sum(i.price*quantity)  from cartitems,item as i where user=1 AND i.name=item_name))
 		#print(cartItems.objects.filter(user=1))
 		return JsonResponse(context)
 
 def generate_invoice(request):
 	items=item.objects.all()
-	print(items)
+	#print(items)
 	cartitems=cartItems.objects.filter(user=request.user)
 	with connection.cursor() as cursor:
 		cursor.execute("select sum(i.price*quantity)  from products_cartitems,products_item as i where user_id=1 and item_name_id=i.id")
 		row = cursor.fetchone()
+	carts=cart.objects.create(user=request.user,totalPrice=row[0])
 	context={
 		'item':items,
 		'cartItems':cartitems,
 		'total':row[0]
 	}
 	return render(request,'invoice.html',context)
+
 @csrf_exempt
 def delete(request):
 	if request.method == 'POST':
 		#print("ok")
 		cartItems.objects.filter(user=request.user).delete()
-		return JsonResponse({'sucess':"sucess"})
+		return JsonResponse({'success':"success"})

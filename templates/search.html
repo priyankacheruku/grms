@@ -23,39 +23,38 @@
     <br><br>
 
 <span style="float:left;">Submit search to obseve details !</span>
-  	<table>
-	
-       <div class="image">
+    <br><br>
+    <div id="search_result" class="row" style="width: 60%" >
+      <div class="image col-4">
           <img src="{{ entry.image.url}}" alt="" height="100px" width="100px" alt="dsfdsg"/>
-        </div>
+      </div>
       
-
-<tr><th>details</th></tr>
-<tr><th>item name:</th>
-    <td>{{ entry.name }}</td>
-</tr>
-<tr><th>item id:</th>
-    <td>{{ entry.id_no}}</td>
-</tr>
- <tr><th>item price:</th>
-    <td>{{ entry.price}}</td>
-</tr>  
-       
-    </table>
-
+      <div class="col-4">
+        <h5 style="color: red">Details</h5>
+        <strong> item name:</strong>{{ entry.name }}<br>
+        <strong>item id:</strong> {{ entry.id_no}}<br>
+        <strong>item price:</strong>{{ entry.price}}  
+      </div> 
+      <div class="col-4"></div> 
+    </div>
 </div>
 </center>
 
 
 <script type="text/javascript">
-
+  
+  
   document.getElementById("search").addEventListener('click', function() {
         var items={% autoescape off %}{{ products}}{% endautoescape %};
       /*initiate the autocomplete function on the "myInput" element, and pass along the items array as possible autocomplete values:*/
     autocomplete(document.getElementById("myInput"),items);
     
   }, false);
-  
+  /*$("#submit_add").click(function (argument) {
+    // body...
+    document.getElementById("search_result").style.display="block";
+
+  });*/
 </script>
 
 
