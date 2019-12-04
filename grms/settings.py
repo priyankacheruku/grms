@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'accounts.apps.AccountsConfig',
+    #'sendemail.apps.SendemailConfig',
     'products',
     'svg',
     'pages'

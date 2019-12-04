@@ -94,6 +94,7 @@ b, strong, .bold {
   margin: 0 auto;
   min-height: 1158px;
   position: relative;
+  width: 70%;
 }
 
 .left-stripes {
@@ -115,10 +116,10 @@ b, strong, .bold {
   left: 33%;
 }
 .left-stripes .circle.c-upper {
-  top: 440px;
+  top: 200px;
 }
 .left-stripes .circle.c-lower {
-  top: 690px;
+  top: 450px;
 }
 
 .right-invoice {

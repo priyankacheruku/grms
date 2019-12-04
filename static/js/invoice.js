@@ -64,7 +64,7 @@ var ib_invoice_data = {
   "{amount_due_label}"      : "Due sum",
   "{amount_due}"            : "",
   "{terms_label}"           : "Terms",
-  "{terms}"                 : "Fred, thank you very much. We really appreciate your business.<br />Please send payments before the due date.",
+  "{terms}"                 : "thank you very much. We really appreciate your business.<br />Please send payments before the due date.",
 
   // Settings
   "date_format"             : "mm/dd/yyyy", // One of dd/mm/yyyy, dd-mm-yyyy, mm/dd/yyyy, mm-dd-yyyy
@@ -79,28 +79,5 @@ var ib_invoice_data = {
   "load_items"              : true,
   "invoicebus_fineprint"    : true,
 
-  // Items
-  "items": [
-    {
-      "item_description" : "Frozen Brontosaurus Ribs",
-      "item_quantity"    : "2",
-      "item_price"       : "120",
-      "item_discount"    : "",
-      "item_tax"         : "2%"
-    },
-    {
-      "item_description" : "Mammoth Chops",
-      "item_quantity"    : "14",
-      "item_price"       : "175",
-      "item_discount"    : "10%",
-      "item_tax"         : "5%"
-    },
-    {
-      "item_description" : "",
-      "item_quantity"    : "",
-      "item_price"       : "",
-      "item_discount"    : "",
-      "item_tax"         : ""
-    }
-  ]
+  
 };

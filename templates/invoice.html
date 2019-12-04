@@ -23,9 +23,11 @@
     <link rel="stylesheet"  href="{% static 'css/invoice.css'%}">
     <script type="text/javascript" src="{% static 'js/invoice.js'%}"></script>
   </head>
-  <body onload="mul()">
+
+  <body >
+  
   	
-    <div id="container">
+    <div id="container" >
       <div class="left-stripes">
         <div class="circle c-upper"></div>
         <div class="circle c-lower"></div>
@@ -35,102 +37,59 @@
         <section id="memo">
           <div class="company-info">
             <div>grocery store</div>
-            <br>
-            <span>{company_address}</span>
-            <span>{company_city_zip_state}</span>
-            <br>
-            <span>{company_phone_fax}</span>
-            <br>
-            <span>{company_email_web}</span>
-          </div>
-
-         <!-- <div class="logo">
-            <img data-logo="{company_logo}" />
-          </div>-->
+           
         </section>
 
         <section id="invoice-title-number">
 
           <div class="title-top">
-            <span class="x-hidden">{issue_date_label}</span>
-            <span>{issue_date}</span> <span id="number">{invoice_number}</span>
+            <span id="DATE"></span> 
           </div>
         
-          <div id="title">{invoice_title}</div>
+          <div id="title">INVOICE</div>
           
         </section>
 
         <section id="client-info">
-          <span>{bill_to_label}</span>
+          <span>Client Name</span>
           <div class="client-name">
             <span>{{user.get_username}}</span>
           </div>
           
-       <!--   <div>
-            <span>{client_address}</span>
-          </div>
-          
-          <div>
-            <span>{client_city_zip_state}</span>
-          </div>
-          
-          <div>
-            <span>{client_phone_fax}</span>
-          </div>
-          
-          <div>
-            <span>{client_email}</span>
-          </div>
-          
-          <div>
-            <span>{client_other}</span>
-          </div>-->
+       
         </section>
         
         <div class="clearfix"></div>
         
-        <!--<section id="invoice-info">
-          <div>
-            <span>{net_term_label}</span> <span>{net_term}</span>
-          </div>
-          <div>
-            <span>{due_date_label}</span> <span>{due_date}</span>
-          </div>
-          <div>
-            <span>{po_number_label}</span> <span>{po_number}</span>
-          </div>
-        </section>
         
-        <div class="clearfix"></div>
-
-        <div class="currency">
-          <span>{currency_label}</span> <span>{currency}</span>
-        </div>-->
         <div id="invoice">
         <section id="items">
           
           <table cellpadding="0" cellspacing="0">
          
             <tr>
-              <th>{item_row_number_label} </th> <!-- Dummy cell for the row number and row commands -->
-              <th>{item_description_label}</th>
-              <th>{item_quantity_label}</th>
-              <th>{item_price_label}</th>
-              <th>{item_discount_label}</th>
-              <th>{item_tax_label}</th>
-              <th>{item_line_total_label}</th>
+          
+             <th></th>
+              <th>Name</th>
+              <th>QUANTITIY</th>
+              <th>PRICE</th>
+              <th></th>
+              <th></th>
+              <th>Line total</th>
             </tr>
            
             {% for i in cartItems %}
             <tr>
-            	<td>{item_row_number}</td>
+            	<td></td>
               <td>{{i.item_name.name}}</td> 
               
               <td id="quantity">{{i.quantity}}</td>
               <td id="price">{{i.item_name.price}}</td>
-              <td>{item_discount}</td>
-              <td>{item_tax}</td>
-              <td id="line_total"> {{i.quantity }}*{{ i.item_name.price }} </td>
+              <td></td>
+              <td></td>
+             
+              <td>{{i.lineTotal}}</td>
+              <!--<td id="line_total"> {{i.quantity }}*{{ i.item_name.price }} </td>-->
             </tr>
                 
            
@@ -148,8 +107,7 @@
               <!-- {amount_total_label} -->
               <td colspan="2">{{total}}</td>
             </tr>
-            <!-- You can use attribute data-hide-on-quote="true" to hide specific information on quotes.
-                 For example Invoicebus doesn't need amount paid and amount due on quotes  -->
+            
                   
           </table>
           
@@ -159,18 +117,37 @@
         
         <section id="terms">
         
-          <span>{terms_label}</span>
-          <div>{terms}</div>
+          <span>Terms</span>
+          <div>{{user.get_username}}! thank you very much. We really appreciate your business.</div>
      
         </section>
 
         <div class="payment-info">
-          <div>{payment_info1}</div>
-          <div>{payment_info2}</div>
+          <div>Payment Info</div>
+          <div>Account Number ● 123006705</div>
         </div>
       </div>
     </div>
+      <script type="text/javascript">
+      //alert("");
+        var today = new Date();
+        var dd = today.getDate();
+        var mm = today.getMonth() + 1; //January is 0!
 
-    <script src="http://cdn.invoicebus.com/generator/generator.min.js?data=data.js"></script>
+        var yyyy = today.getFullYear();
+        if (dd < 10) {
+          dd = '0' + dd;
+        } 
+        if (mm < 10) {
+          mm = '0' + mm;
+        } 
+        var today = dd + '/' + mm + '/' + yyyy;
+        //alert(today);
+      $(document).ready(function (argument) {
+          document.getElementById('DATE').innerHTML= today;
+      });
+    </script>
+
+
   </body>
 </html>

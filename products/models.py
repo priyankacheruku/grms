@@ -21,6 +21,10 @@ class cartItems(models.Model):
 	user = models.ForeignKey(User, null=True, blank=True,on_delete=models.CASCADE,related_name="users")
 	def __str__(self):
 		return('cart  items of '+self.user.username+' '+str(self.item_name))
+	@property
+	def lineTotal(self):
+		return self.quantity *self.item_name.price
+	
 
 class cart(models.Model):
 	def __str__(self):
