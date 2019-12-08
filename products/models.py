@@ -1,5 +1,5 @@
 from django.db import models
-
+import datetime
 # Create your models here.
 from django.template.defaultfilters import slugify
 from django.contrib.auth.models import User
@@ -28,7 +28,7 @@ class cartItems(models.Model):
 
 class cart(models.Model):
 	def __str__(self):
-		return 'cart of '+self.user.username
+		return 'cart of '+self.user.username+' on '+str(datetime.date.today())
 	user = models.ForeignKey(User, null=True, blank=True,on_delete=models.CASCADE,related_name="+")
 	created_on = models.DateTimeField(auto_now_add=True)
 	totalPrice= models.IntegerField()
