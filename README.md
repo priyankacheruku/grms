@@ -1,22 +1,19 @@
-# Bill generation grms
+ "http://127.0.0.1:8000/admin/" is uses to access the interface.
+INSTALLATIONSOFTWARE REQUIREMENTS:
 
-This is a website built using DJANGO framework.
+DJANGO 2.0+
+PYTHON 3.0+
+MYSQL
+Virtual environment with
+  -DJANGO 2.0+ 
+  -PYTHON 3.0+
+MYSQL(mysqlclient,mysqlserver)
+COMMANDS REQUIRED before execution
 
-Who can access?
-  
-  
-    -ADMIN(superuser)
-    -USER(one who need to register ONSITE)
- 
- 
- 
-ADMIN 
-    
-     "http://127.0.0.1:8000/admin/" is uses to access the interface.
-     
-     
-INSTALLATION REQUIREMENTS:
-
-    DJANGO 2.0+
-    PYTHON 3.0+
-    MYSQL
+-for database
+  $python manage.py makemigrations
+  $python manage.py migrate
+-for staticfiles
+  $python manage.py collectstatic
+-for mail
+  change examplemail and password

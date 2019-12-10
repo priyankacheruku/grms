@@ -16,7 +16,7 @@ def sendMail(request):
 		subject = str(request.POST['subject'])
 		
 
-		recipient_list = ['cheruku020@gmail.com',]
+		recipient_list = [settings.EMAIL_HOST_USER,]#get mail id from user
 		email_from = settings.EMAIL_HOST_USER
 		send_mail(subject, message, email_from, recipient_list )
 		print("ok......")
