@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% block unauthorised %}
+<form method="POST">
+	<h1>COUNTACT US</h1>
+	SUBJECT <input type="text" id="subject" name="subject"><br><br>
+	MESSAGE<textarea id="message" name="message"></textarea>
+
+	<button type="button" id="send">send</button>
+</form>
+<script type="text/javascript">
+	//alert();
+	 $('#send').on('click', function() {
+	 //function send() {
+          //alert("as");
+          //alert($("#subject").val());
+        var subject=$("#subject").val();
+        var message=$("#message").val();
+        //alert(subject);
+        $.ajax({
+          type:"POST",
+          url: "{% url 'sendMail' %}", 
+          data:{
+            'subject':subject,
+            'message':message,
+          },
+          dataType: 'json',
+          success: function(result){
+            alert("result");
+            window.location.href = '/successmail';
+            //$("#finalPrice").text(result.row);
+          },
+        });
+
+      });
+</script>
+{% endblock%} 

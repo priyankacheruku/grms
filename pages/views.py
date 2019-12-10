@@ -25,3 +25,6 @@ def cart(request):
 		'items':items,
 	}
 	return render(request, 'cart.html',context)
+def contact(request):
+	context = {"contact_page": "active"}
+	return render(request, 'contact.html',context)
