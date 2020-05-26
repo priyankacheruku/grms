@@ -45,7 +45,7 @@ INSTALLED_APPS = [
     'accounts.apps.AccountsConfig',
     #'sendemail.apps.SendemailConfig',
     'products',
-    'svg',
+    'svg', # pip install django-inline-svg
     'pages',
     'contact'
 ]
@@ -86,10 +86,17 @@ WSGI_APPLICATION = 'grms.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'OPTIONS': {
-            'read_default_file': '/etc/mysql/my.cnf',
-        },
+        'ENGINE': 'django.db.backends.mysql', 
+        'NAME': 'DB_NAME',
+        'USER': 'LOCAL_HOST', # rOOT
+        'PASSWORD': 'PASSWORD', # password for user on mysql
+        'HOST': 'localhost',   # Or an IP Address that your DB is hosted on
+        'PORT': '3306',
+        
+        # 'ENGINE': 'django.db.backends.mysql',
+        # 'OPTIONS': {
+        #     'read_default_file': '/etc/mysql/my.cnf',
+        # },
     }
 }
 
