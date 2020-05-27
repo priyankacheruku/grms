@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 """
 
 import os
+import django_heroku
 
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/'
@@ -30,7 +31,7 @@ SECRET_KEY = '$!v_(5*3d$o&15n%q7u37pqz=%pct!#(s)n-z7ot8f&fy-15vr'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*"]
 
 
 # Application definition
@@ -87,9 +88,9 @@ WSGI_APPLICATION = 'grms.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql', 
-        'NAME': 'DB_NAME',
-        'USER': 'LOCAL_HOST', # rOOT
-        'PASSWORD': 'PASSWORD', # password for user on mysql
+        'NAME': 'grms',
+        'USER': 'root', # rOOT
+        'PASSWORD': 'password', # password for user on mysql
         'HOST': 'localhost',   # Or an IP Address that your DB is hosted on
         'PORT': '3306',
         
@@ -155,3 +156,5 @@ EMAIL_USE_TLS = True
 EMAIL_PORT = 587
 EMAIL_HOST_USER = 'example@gmail.com'
 EMAIL_HOST_PASSWORD = 'example'
+
+django_heroku.settings(locals())
